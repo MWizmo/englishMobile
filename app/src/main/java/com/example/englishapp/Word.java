@@ -22,6 +22,12 @@ public class Word {
     @SerializedName("section")
     @Expose
     private String section;
+    @SerializedName("inDictionary")
+    @Expose
+    private boolean inDictionary;
+    @SerializedName("sectionId")
+    @Expose
+    private int sectionId;
 
     public int getId() {
         return id;
@@ -69,5 +75,21 @@ public class Word {
 
     public void setSection(String section) {
         this.section = section;
+    }
+
+    public boolean isInDictionary() {
+        return inDictionary;
+    }
+
+    public void setInDictionary(boolean inDictionary) {
+        this.inDictionary = inDictionary;
+    }
+
+    public int getSectionId() {
+        return sectionId;
+    }
+
+    public void setSectionId(int sectionId) {
+        this.sectionId = sectionId;
     }
 }

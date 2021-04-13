@@ -2,29 +2,24 @@ package com.example.englishapp.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
-import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.englishapp.APIWorker;
 import com.example.englishapp.R;
 import com.example.englishapp.Section;
-import com.example.englishapp.ServerRequest;
-import com.example.englishapp.ServerResponse;
-import com.example.englishapp.Task;
 import com.example.englishapp.Word;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 
@@ -61,6 +56,7 @@ public class TheoryActivity extends BaseActivity {
                 .getJSONApi()
                 .getSectionWords(sectionId)
                 .enqueue(new Callback<List<Word>>() {
+                    @SuppressLint("ResourceAsColor")
                     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
                     @Override
                     public void onResponse(@NonNull Call<List<Word>> call, @NonNull Response<List<Word>> response) {
@@ -71,38 +67,54 @@ public class TheoryActivity extends BaseActivity {
                             enWord.setText(w.getEnWord());
                             TableRow.LayoutParams params = new TableRow.LayoutParams
                                     (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                            params.weight = 30;
+                            params.weight = 50;
                             enWord.setLayoutParams(params);
+                            enWord.setTextColor(Color.rgb(0, 0, 0));
+                            enWord.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                            enWord.setTextSize(24);
 
-                            TextView ruWord = new TextView(getContext());
-                            ruWord.setText(w.getRuWord());
-                            ruWord.setLayoutParams(params);
+
+//                            TextView ruWord = new TextView(getContext());
+//                            ruWord.setText(w.getRuWord());
+//                            ruWord.setLayoutParams(params);
                             TextView pOS = new TextView(getContext());
+                            pOS.setTextSize(20);
                             pOS.setText(w.getPartOfSpeech());
+                            params.weight = 40;
                             pOS.setLayoutParams(params);
 
                             Button button = new Button(getContext());
-                            params.weight = 10;
-                            button.setLayoutParams(params);
-                            button.setText("+");
+                            int widthInDp = 20;
+                            int widthInPx = (int) TypedValue.applyDimension(
+                                    TypedValue.COMPLEX_UNIT_DIP, widthInDp, getResources().getDisplayMetrics());
+                            int heightInDp = 30;
+                            int heightInPx = (int) TypedValue.applyDimension(
+                                    TypedValue.COMPLEX_UNIT_DIP, heightInDp, getResources().getDisplayMetrics());
+                            TableRow.LayoutParams button_params = new TableRow.LayoutParams(widthInPx,heightInPx);
+                            button_params.weight = 10;
+                            button.setLayoutParams(button_params);
+                            button.setBackgroundResource(R.drawable.lup_icon);
                             button.setId(w.getId());
                             button.setOnClickListener((TheoryActivity.this::openNewActivity));
                             row1.addView(enWord);
                             row1.addView(pOS);
-                            row1.addView(ruWord);
+                            //row1.addView(ruWord);
                             row1.addView(button);
+                            TableRow.LayoutParams rowParams = new TableRow.LayoutParams();
+                            rowParams.setMargins(0, 20,0,20);
+                            row1.setLayoutParams(rowParams);
                             table.addView(row1);
 
-                            TableRow row2 = new TableRow(getContext());
-                            TextView definition = new TextView(getContext());
-                            definition.setText(w.getDefinition());
-                            TableRow.LayoutParams params2 = new TableRow.LayoutParams
-                                    (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                            params2.span = 4;
-                            definition.setLayoutParams(params2);
-                            row2.addView(definition);
-                            table.addView(row2);
-
+//                            TableRow row2 = new TableRow(getContext());
+//                            TextView definition = new TextView(getContext());
+//                            definition.setText(w.getDefinition());
+//                            TableRow.LayoutParams params2 = new TableRow.LayoutParams
+//                                    (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//                            params2.span = 4;
+//                            definition.setLayoutParams(params2);
+//                            row2.addView(definition);
+//                            table.addView(row2);
+//
                             View border = new View(getContext());
                             TableRow.LayoutParams borderParams = new TableRow.LayoutParams
                                     (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -122,23 +134,26 @@ public class TheoryActivity extends BaseActivity {
 
     @Override
     public void openNewActivity(View view) {
-        int wordId = view.getId();
-        ServerRequest request = new ServerRequest(1, wordId);
-        APIWorker.getInstance()
-                .getJSONApi()
-                .addToDictionary(request)
-                .enqueue(new Callback<ServerResponse>() {
-                    @Override
-                    public void onResponse(@NonNull Call<ServerResponse> call, @NonNull Response<ServerResponse> response) {
-                        ServerResponse word = response.body();
-                        Toast toast = Toast.makeText(getContext(), "'" + word.getMessage() +"' added to your dictionary",Toast.LENGTH_LONG);
-                        toast.show();
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<ServerResponse> call, @NonNull Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
+        Intent intent = new Intent(this, WordCardActivity.class);
+        intent.putExtra("word_id", view.getId());
+        startActivity(intent);
+//        int wordId = view.getId();
+//        ServerRequest request = new ServerRequest(1, wordId);
+//        APIWorker.getInstance()
+//                .getJSONApi()
+//                .addToDictionary(request)
+//                .enqueue(new Callback<ServerResponse>() {
+//                    @Override
+//                    public void onResponse(@NonNull Call<ServerResponse> call, @NonNull Response<ServerResponse> response) {
+//                        ServerResponse word = response.body();
+//                        Toast toast = Toast.makeText(getContext(), "'" + word.getMessage() +"' added to your dictionary",Toast.LENGTH_LONG);
+//                        toast.show();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(@NonNull Call<ServerResponse> call, @NonNull Throwable t) {
+//                        t.printStackTrace();
+//                    }
+//                });
     }
 }

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.TranslationTaskActivity">
+
+    <LinearLayout
+        android:id="@+id/taskLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:paddingTop="20dp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/taskTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Choose the right translation from "
+            android:textAlignment="center"
+            android:textColor="#00008B"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#00008B"
+            app:layout_constraintTop_toBottomOf="@id/taskTitle"
+            />
+        <TextView
+            android:id="@+id/wordToTranslate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text=""
+            android:layout_marginTop="150dp"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/taskTitle"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonAnswer1"
+        android:layout_width="157dp"
+        android:layout_height="81dp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@id/taskLayout"
+        android:layout_marginTop="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="10dp"
+        android:onClick="openNewActivity"
+        />
+
+    <Button
+        android:id="@+id/buttonAnswer2"
+        android:layout_width="157dp"
+        android:layout_height="81dp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@id/taskLayout"
+        app:layout_constraintLeft_toRightOf="@id/buttonAnswer1"
+        android:layout_marginLeft="10dp"
+        android:onClick="openNewActivity"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:id="@+id/buttonAnswer3"
+        android:layout_width="157dp"
+        android:layout_height="81dp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@id/buttonAnswer1"
+        android:layout_marginTop="20dp"
+        android:onClick="openNewActivity"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="10dp" />
+
+    <Button
+        android:id="@+id/buttonAnswer4"
+        android:layout_width="157dp"
+        android:layout_height="81dp"
+        android:text=""
+        android:onClick="openNewActivity"
+        app:layout_constraintTop_toBottomOf="@id/buttonAnswer2"
+        app:layout_constraintLeft_toRightOf="@id/buttonAnswer3"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:id="@+id/newWordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Repeat with other word"
+        android:onClick="newWord"
+        app:layout_constraintTop_toBottomOf="@id/buttonAnswer4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

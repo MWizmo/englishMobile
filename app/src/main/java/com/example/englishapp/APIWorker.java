@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIWorker {
     private static APIWorker mInstance;
-    private static final String BASE_URL = "http://df87cc15348d.ngrok.io/api/";
+    private static final String BASE_URL = "http://e84a28e1cca1.ngrok.io/api/";
     private Retrofit mRetrofit;
 
     private APIWorker() {

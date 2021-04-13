@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.englishapp.APIWorker;
 import com.example.englishapp.Section;
 import com.example.englishapp.Task;
+import com.example.englishapp.TranslationTask;
 
 import java.util.List;
 
@@ -112,6 +113,20 @@ public class SectionActivity extends BaseActivity {
                             case 1:
                                 Intent intent = new Intent(getContext(), TheoryActivity.class);
                                 intent.putExtra("sectionId", t.getSectionId());
+                                startActivity(intent);
+                                break;
+                            case 2:
+                                intent = new Intent(getContext(), TranslationTaskActivity.class);
+                                intent.putExtra("sectionId", t.getSectionId());
+                                intent.putExtra("taskId", t.getId());
+                                intent.putExtra("taskType", 2);
+                                startActivity(intent);
+                                break;
+                            case 3:
+                                intent = new Intent(getContext(), TranslationTaskActivity.class);
+                                intent.putExtra("sectionId", t.getSectionId());
+                                intent.putExtra("taskType", 3);
+                                intent.putExtra("taskId", t.getId());
                                 startActivity(intent);
                                 break;
                             default:
