@@ -30,7 +30,7 @@ public class WordCardActivity extends BaseActivity {
         }
         APIWorker.getInstance()
                 .getJSONApi()
-                .getWordById(word_id, 1)
+                .getWordById(word_id, getAuthedUserId())
                 .enqueue(new Callback<Word>() {
                     @Override
                     public void onResponse(@NonNull Call<Word> call, @NonNull Response<Word> response) {
@@ -62,7 +62,7 @@ public class WordCardActivity extends BaseActivity {
     @Override
     public void openNewActivity(View view) {
         int wordId = view.getId();
-        WordServerRequest request = new WordServerRequest(1, wordId);
+        WordServerRequest request = new WordServerRequest(getAuthedUserId(), wordId);
         APIWorker.getInstance()
                 .getJSONApi()
                 .addToDictionary(request)
@@ -86,7 +86,7 @@ public class WordCardActivity extends BaseActivity {
 
     public void removeWord(View view) {
         int wordId = view.getId();
-        WordServerRequest request = new WordServerRequest(1, wordId);
+        WordServerRequest request = new WordServerRequest(getAuthedUserId(), wordId);
         APIWorker.getInstance()
                 .getJSONApi()
                 .remove_from_dictionary(request)

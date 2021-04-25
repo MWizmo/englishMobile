@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.englishapp.APIWorker;
 import com.example.englishapp.Module;
+import com.example.englishapp.R;
 
 import java.util.List;
 
@@ -25,19 +26,8 @@ public class ModulesActivity extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void setView() {
-        ScrollView scrollView = new ScrollView(this);
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-
-        TextView title = new TextView(this);
-        title.setText("All modules");
-        title.setTextSize(20);
-        LinearLayout.LayoutParams titleLayoutParams = new LinearLayout.LayoutParams
-                (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        titleLayoutParams.setMargins(0, 20, 0, 50);
-        title.setLayoutParams(titleLayoutParams);
-        title.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        linearLayout.addView(title);
+        setContentView(R.layout.activity_modules);
+        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.modulesList);
         APIWorker.getInstance()
                 .getJSONApi()
                 .getModules()
@@ -70,8 +60,6 @@ public class ModulesActivity extends BaseActivity {
                         toast.show();
                     }
                 });
-        scrollView.addView(linearLayout);
-        setContentView(scrollView);
     }
 
     @Override

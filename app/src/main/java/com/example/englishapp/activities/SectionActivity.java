@@ -12,6 +12,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.englishapp.APIWorker;
+import com.example.englishapp.R;
 import com.example.englishapp.Section;
 import com.example.englishapp.Task;
 import com.example.englishapp.TranslationTask;
@@ -27,9 +28,8 @@ public class SectionActivity extends BaseActivity {
     public void setView() {
         Intent intent = getIntent();
         int section_id = intent.getIntExtra("section_id", 0);
-        ScrollView scrollView = new ScrollView(this);
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        setContentView(R.layout.activity_section);
+        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.taskInSectionList);
         APIWorker.getInstance()
                 .getJSONApi()
                 .getSectionInfo(section_id)
@@ -38,15 +38,8 @@ public class SectionActivity extends BaseActivity {
                     @Override
                     public void onResponse(@NonNull Call<Section> call, @NonNull Response<Section> response) {
                         Section s = response.body();
-                        TextView title = new TextView(getContext());
+                        TextView title = findViewById(R.id.sectionTitleText1);
                         title.setText("Section: " + s.getTitle());
-                        title.setTextSize(20);
-                        LinearLayout.LayoutParams titleLayoutParams = new LinearLayout.LayoutParams
-                                (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        titleLayoutParams.setMargins(0, 20, 0, 50);
-                        title.setLayoutParams(titleLayoutParams);
-                        title.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                        linearLayout.addView(title);
                     }
                     @Override
                     public void onFailure(@NonNull Call<Section> call, @NonNull Throwable t) {
@@ -71,11 +64,11 @@ public class SectionActivity extends BaseActivity {
                                     break;
                                 case 2:
                                     button.setText("Task: translate to Russian");
-                                    button.setBackgroundColor(Color.rgb(0, 255, 127));
+                                    button.setBackgroundColor(Color.rgb(135, 206, 250));
                                     break;
                                 case 3:
                                     button.setText("Task: translate to English");
-                                    button.setBackgroundColor(Color.rgb(0, 250, 154));
+                                    button.setBackgroundColor(Color.rgb(135, 206, 250));
                             }
                             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
                                     (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -94,8 +87,6 @@ public class SectionActivity extends BaseActivity {
                         t.printStackTrace();
                     }
                 });
-        scrollView.addView(linearLayout);
-        setContentView(scrollView);
     }
 
     @Override

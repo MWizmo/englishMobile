@@ -65,4 +65,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         item.setTitle(preferences.getString(Constants.APP_PREFERENCES_USERNAME, "Unknown"));
         return super.onPrepareOptionsMenu(menu);
     }
+
+    protected int getAuthedUserId(){
+        SharedPreferences preferences = getSharedPreferences(Constants.APP_PREFERENCES, Context.MODE_PRIVATE);
+        return preferences.getInt(Constants.APP_PREFERENCES_USER_ID, 0);
+    }
 }

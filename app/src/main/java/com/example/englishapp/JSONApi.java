@@ -55,4 +55,7 @@ public interface JSONApi {
     @POST("login")
     Call<ServerResponse> login(@Body LoginRequest request);
 
+    @GET("user_stat/{user_id}")
+    Call<List<WordStat>> getUserStats(@Path("user_id") int user_id);
+
 }

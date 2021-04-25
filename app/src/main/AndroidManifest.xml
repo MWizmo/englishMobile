@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EnglishApp"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activities.UserStatsActivity"></activity>
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.TranslationTaskActivity" />
         <activity android:name=".activities.TheoryActivity" />
@@ -23,6 +24,7 @@
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

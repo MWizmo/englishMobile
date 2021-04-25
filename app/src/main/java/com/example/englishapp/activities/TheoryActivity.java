@@ -137,23 +137,5 @@ public class TheoryActivity extends BaseActivity {
         Intent intent = new Intent(this, WordCardActivity.class);
         intent.putExtra("word_id", view.getId());
         startActivity(intent);
-//        int wordId = view.getId();
-//        ServerRequest request = new ServerRequest(1, wordId);
-//        APIWorker.getInstance()
-//                .getJSONApi()
-//                .addToDictionary(request)
-//                .enqueue(new Callback<ServerResponse>() {
-//                    @Override
-//                    public void onResponse(@NonNull Call<ServerResponse> call, @NonNull Response<ServerResponse> response) {
-//                        ServerResponse word = response.body();
-//                        Toast toast = Toast.makeText(getContext(), "'" + word.getMessage() +"' added to your dictionary",Toast.LENGTH_LONG);
-//                        toast.show();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(@NonNull Call<ServerResponse> call, @NonNull Throwable t) {
-//                        t.printStackTrace();
-//                    }
-//                });
     }
 }

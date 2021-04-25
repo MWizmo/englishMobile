@@ -2,7 +2,10 @@ package com.example.englishapp.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
@@ -11,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import com.example.englishapp.APIWorker;
+import com.example.englishapp.Constants;
+import com.example.englishapp.R;
 import com.example.englishapp.Word;
 
 import java.util.List;
@@ -25,26 +30,17 @@ public class DictionaryActivity extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void setView() {
-        ScrollView scrollView = new ScrollView(this);
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-
-        TextView title = new TextView(this);
-        title.setText("My words");
-        title.setTextSize(20);
-        LinearLayout.LayoutParams titleLayoutParams = new LinearLayout.LayoutParams
-                (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        titleLayoutParams.setMargins(0, 20, 0, 50);
-        title.setLayoutParams(titleLayoutParams);
-        title.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        linearLayout.addView(title);
+        setContentView(R.layout.activity_dictionary);
+        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.wordsList);
         APIWorker.getInstance()
                 .getJSONApi()
-                .getWordsOfUser(1)
+                .getWordsOfUser(getAuthedUserId())
                 .enqueue(new Callback<List<Word>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<Word>> call, @NonNull Response<List<Word>> response) {
                         List<Word> words = response.body();
+                        if(words.size() == 0)
+                            findViewById(R.id.dictionaryEmptyText).setVisibility(View.VISIBLE);
                         for (Word word: words) {
                             Button button = new Button(getContext());
                             button.setId(word.getId());
@@ -67,10 +63,6 @@ public class DictionaryActivity extends BaseActivity {
                         t.printStackTrace();
                     }
                 });
-        //APIWorker.getContent();
-
-        scrollView.addView(linearLayout);
-        setContentView(scrollView);
     }
 
     @Override

@@ -40,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void toStats(View view) {
+        Intent intent = new Intent(this, UserStatsActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);

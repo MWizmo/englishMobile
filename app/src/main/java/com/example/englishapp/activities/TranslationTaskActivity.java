@@ -2,13 +2,16 @@ package com.example.englishapp.activities;
 
 import androidx.annotation.NonNull;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.englishapp.APIWorker;
+import com.example.englishapp.Constants;
 import com.example.englishapp.R;
 import com.example.englishapp.ServerResponse;
 import com.example.englishapp.TranslationTask;
@@ -101,7 +104,7 @@ public class TranslationTaskActivity extends BaseActivity {
             result = 0;
             findViewById(R.id.newWordButton).setVisibility(View.INVISIBLE);
         }
-        UserStatServerRequest request = new UserStatServerRequest(1, rightWordId, result);
+        UserStatServerRequest request = new UserStatServerRequest(getAuthedUserId(), rightWordId, result);
         APIWorker.getInstance().getJSONApi().fix_stat(request)
                 .enqueue(new Callback<ServerResponse>() {
             @Override

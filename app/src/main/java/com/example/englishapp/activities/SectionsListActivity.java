@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.englishapp.APIWorker;
 import com.example.englishapp.Module;
+import com.example.englishapp.R;
 import com.example.englishapp.Section;
 
 import java.util.List;
@@ -26,9 +27,8 @@ public class SectionsListActivity extends BaseActivity {
     public void setView() {
         Intent intent = getIntent();
         int module_id = intent.getIntExtra("module_id", 0);
-        ScrollView scrollView = new ScrollView(this);
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        setContentView(R.layout.activity_list_sections);
+        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.sectionsList);
         APIWorker.getInstance()
                 .getJSONApi()
                 .getModuleInfo(module_id)
@@ -37,15 +37,8 @@ public class SectionsListActivity extends BaseActivity {
                     @Override
                     public void onResponse(@NonNull Call<Module> call, @NonNull Response<Module> response) {
                         Module module = response.body();
-                        TextView title = new TextView(getContext());
+                        TextView title = findViewById(R.id.moduleTitleText);
                         title.setText("Module: " + module.getTitle());
-                        title.setTextSize(20);
-                        LinearLayout.LayoutParams titleLayoutParams = new LinearLayout.LayoutParams
-                                (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        titleLayoutParams.setMargins(0, 20, 0, 50);
-                        title.setLayoutParams(titleLayoutParams);
-                        title.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                        linearLayout.addView(title);
                     }
                     @Override
                     public void onFailure(@NonNull Call<Module> call, @NonNull Throwable t) {
@@ -82,8 +75,6 @@ public class SectionsListActivity extends BaseActivity {
                         t.printStackTrace();
                     }
                 });
-        scrollView.addView(linearLayout);
-        setContentView(scrollView);
     }
 
     @Override
