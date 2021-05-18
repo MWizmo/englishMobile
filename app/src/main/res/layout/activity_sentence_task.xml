@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.SentenceTaskActivity">
+
+    <LinearLayout
+        android:id="@+id/sentenceTaskLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:paddingTop="20dp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/sentenceTaskTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Insert missing word"
+            android:textAlignment="center"
+            android:textColor="#00008B"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#00008B"
+            app:layout_constraintTop_toBottomOf="@id/sentenceTaskTitle"
+            />
+        <TextView
+            android:id="@+id/sentenceText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text=""
+            android:layout_marginTop="150dp"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/sentenceTaskTitle"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonAnswer11"
+        android:layout_width="157dp"
+        android:layout_height="81dp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@id/sentenceTaskLayout"
+        android:layout_marginTop="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="10dp"
+        android:onClick="openNewActivity"
+        />
+
+    <Button
+        android:id="@+id/buttonAnswer22"
+        android:layout_width="157dp"
+        android:layout_height="81dp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@id/sentenceTaskLayout"
+        app:layout_constraintLeft_toRightOf="@id/buttonAnswer11"
+        android:layout_marginLeft="10dp"
+        android:onClick="openNewActivity"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:id="@+id/buttonAnswer33"
+        android:layout_width="157dp"
+        android:layout_height="81dp"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@id/buttonAnswer11"
+        android:layout_marginTop="20dp"
+        android:onClick="openNewActivity"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="10dp" />
+
+    <Button
+        android:id="@+id/buttonAnswer44"
+        android:layout_width="157dp"
+        android:layout_height="81dp"
+        android:text=""
+        android:onClick="openNewActivity"
+        app:layout_constraintTop_toBottomOf="@id/buttonAnswer22"
+        app:layout_constraintLeft_toRightOf="@id/buttonAnswer33"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:id="@+id/newSentenceButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Repeat with other sentence"
+        app:layout_constraintTop_toBottomOf="@id/buttonAnswer44"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="60dp"
+        android:onClick="newSentence"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
