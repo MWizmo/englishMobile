@@ -78,6 +78,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    public void googleLogin(View view){
+
+    }
+
     public Context getContext() {
         return (Context)this;
     }

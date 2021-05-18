@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.TranslationTaskActivity">
+    tools:context=".activities.AudioTaskActivity">
 
     <LinearLayout
-        android:id="@+id/taskLayout"
+        android:id="@+id/taskLayoutA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -16,7 +16,7 @@
         tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/taskTitle"
+            android:id="@+id/taskTitleA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -29,30 +29,33 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#00008B"
-            app:layout_constraintTop_toBottomOf="@id/taskTitle"
+            app:layout_constraintTop_toBottomOf="@id/taskTitleA"
             />
-        <TextView
-            android:id="@+id/wordToTranslate"
+
+        <LinearLayout
             android:layout_width="match_parent"
+            android:id="@+id/audioTask"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text=""
-            android:layout_marginTop="150dp"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:gravity="center_horizontal"
-            app:layout_constraintTop_toBottomOf="@id/taskTitle"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            android:orientation="vertical"
+            android:layout_marginTop="84dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/taskTitleA"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:onClick="playAudio"
+                app:srcCompat="@drawable/speaker"/>
+        </LinearLayout>
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/buttonAnswer1"
+        android:id="@+id/buttonAnswer1A"
         android:layout_width="157dp"
         android:layout_height="81dp"
         android:text=""
-        app:layout_constraintTop_toBottomOf="@id/taskLayout"
+        app:layout_constraintTop_toBottomOf="@id/taskLayoutA"
         android:layout_marginTop="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="10dp"
@@ -60,47 +63,47 @@
         />
 
     <Button
-        android:id="@+id/buttonAnswer2"
+        android:id="@+id/buttonAnswer2A"
         android:layout_width="157dp"
         android:layout_height="81dp"
         android:text=""
-        app:layout_constraintTop_toBottomOf="@id/taskLayout"
-        app:layout_constraintLeft_toRightOf="@id/buttonAnswer1"
+        app:layout_constraintTop_toBottomOf="@id/taskLayoutA"
+        app:layout_constraintLeft_toRightOf="@id/buttonAnswer1A"
         android:layout_marginLeft="10dp"
         android:onClick="openNewActivity"
         android:layout_marginTop="50dp" />
 
     <Button
-        android:id="@+id/buttonAnswer3"
+        android:id="@+id/buttonAnswer3A"
         android:layout_width="157dp"
         android:layout_height="81dp"
         android:text=""
-        app:layout_constraintTop_toBottomOf="@id/buttonAnswer1"
+        app:layout_constraintTop_toBottomOf="@id/buttonAnswer1A"
         android:layout_marginTop="20dp"
         android:onClick="openNewActivity"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="10dp" />
 
     <Button
-        android:id="@+id/buttonAnswer4"
+        android:id="@+id/buttonAnswer4A"
         android:layout_width="157dp"
         android:layout_height="81dp"
         android:text=""
         android:onClick="openNewActivity"
-        app:layout_constraintTop_toBottomOf="@id/buttonAnswer2"
-        app:layout_constraintLeft_toRightOf="@id/buttonAnswer3"
+        app:layout_constraintTop_toBottomOf="@id/buttonAnswer2A"
+        app:layout_constraintLeft_toRightOf="@id/buttonAnswer3A"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp" />
 
     <Button
-        android:id="@+id/newWordButton"
+        android:id="@+id/newWordButtonA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Repeat with other word"
-        android:onClick="newWord"
-        app:layout_constraintTop_toBottomOf="@id/buttonAnswer4"
+        app:layout_constraintTop_toBottomOf="@id/buttonAnswer4A"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="60dp"
+        android:onClick="newWord"
         android:layout_marginTop="20dp"
         android:visibility="invisible"/>
 

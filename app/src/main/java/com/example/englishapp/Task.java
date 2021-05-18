@@ -16,6 +16,9 @@ public class Task {
     @SerializedName("sectionId")
     @Expose
     private int sectionId;
+    @SerializedName("completed")
+    @Expose
+    private boolean completed;
 
 
     public int getId() {
@@ -48,5 +51,13 @@ public class Task {
 
     public void setSectionId(int sectionId) {
         this.sectionId = sectionId;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 }

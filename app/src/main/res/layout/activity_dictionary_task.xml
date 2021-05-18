@@ -7,7 +7,7 @@
     tools:context=".activities.TranslationTaskActivity">
 
     <LinearLayout
-        android:id="@+id/taskLayout"
+        android:id="@+id/taskLayoutD"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -16,7 +16,7 @@
         tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/taskTitle"
+            android:id="@+id/taskTitleD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -32,7 +32,7 @@
             app:layout_constraintTop_toBottomOf="@id/taskTitle"
             />
         <TextView
-            android:id="@+id/wordToTranslate"
+            android:id="@+id/wordToTranslateD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -42,17 +42,17 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:gravity="center_horizontal"
-            app:layout_constraintTop_toBottomOf="@id/taskTitle"
+            app:layout_constraintTop_toBottomOf="@id/taskTitleD"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/buttonAnswer1"
+        android:id="@+id/buttonAnswer1D"
         android:layout_width="157dp"
         android:layout_height="81dp"
         android:text=""
-        app:layout_constraintTop_toBottomOf="@id/taskLayout"
+        app:layout_constraintTop_toBottomOf="@id/taskLayoutD"
         android:layout_marginTop="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="10dp"
@@ -60,45 +60,44 @@
         />
 
     <Button
-        android:id="@+id/buttonAnswer2"
+        android:id="@+id/buttonAnswer2D"
         android:layout_width="157dp"
         android:layout_height="81dp"
         android:text=""
-        app:layout_constraintTop_toBottomOf="@id/taskLayout"
-        app:layout_constraintLeft_toRightOf="@id/buttonAnswer1"
+        app:layout_constraintTop_toBottomOf="@id/taskLayoutD"
+        app:layout_constraintLeft_toRightOf="@id/buttonAnswer1D"
         android:layout_marginLeft="10dp"
         android:onClick="openNewActivity"
         android:layout_marginTop="50dp" />
 
     <Button
-        android:id="@+id/buttonAnswer3"
+        android:id="@+id/buttonAnswer3D"
         android:layout_width="157dp"
         android:layout_height="81dp"
         android:text=""
-        app:layout_constraintTop_toBottomOf="@id/buttonAnswer1"
+        app:layout_constraintTop_toBottomOf="@id/buttonAnswer1D"
         android:layout_marginTop="20dp"
         android:onClick="openNewActivity"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="10dp" />
 
     <Button
-        android:id="@+id/buttonAnswer4"
+        android:id="@+id/buttonAnswer4D"
         android:layout_width="157dp"
         android:layout_height="81dp"
         android:text=""
         android:onClick="openNewActivity"
-        app:layout_constraintTop_toBottomOf="@id/buttonAnswer2"
-        app:layout_constraintLeft_toRightOf="@id/buttonAnswer3"
+        app:layout_constraintTop_toBottomOf="@id/buttonAnswer2D"
+        app:layout_constraintLeft_toRightOf="@id/buttonAnswer3D"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp" />
 
     <Button
-        android:id="@+id/newWordButton"
+        android:id="@+id/newWordButtonD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Repeat with other word"
-        android:onClick="newWord"
-        app:layout_constraintTop_toBottomOf="@id/buttonAnswer4"
+        app:layout_constraintTop_toBottomOf="@id/buttonAnswer4D"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="20dp"

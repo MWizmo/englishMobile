@@ -28,6 +28,9 @@ public class Word {
     @SerializedName("sectionId")
     @Expose
     private int sectionId;
+    @SerializedName("audio")
+    @Expose
+    private boolean audio;
 
     public int getId() {
         return id;
@@ -91,5 +94,13 @@ public class Word {
 
     public void setSectionId(int sectionId) {
         this.sectionId = sectionId;
+    }
+
+    public boolean isAudio() {
+        return audio;
+    }
+
+    public void setAudio(boolean audio) {
+        this.audio = audio;
     }
 }

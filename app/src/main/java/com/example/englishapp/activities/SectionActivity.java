@@ -48,7 +48,7 @@ public class SectionActivity extends BaseActivity {
                 });
         APIWorker.getInstance()
                 .getJSONApi()
-                .getTasksFromSection(section_id)
+                .getTasksFromSection(section_id, getAuthedUserId())
                 .enqueue(new Callback<List<Task>>() {
                     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
                     @Override
@@ -59,17 +59,62 @@ public class SectionActivity extends BaseActivity {
                             button.setId(t.getId());
                             switch (t.getType()) {
                                 case 1:
-                                    button.setText("Theory");
-                                    button.setBackgroundColor(Color.rgb(135, 206, 250));
+                                    button.setText("WORDS: Theory");
                                     break;
                                 case 2:
-                                    button.setText("Task: translate to Russian");
-                                    button.setBackgroundColor(Color.rgb(135, 206, 250));
+                                    button.setText("WORDS: Translate to Russian");
                                     break;
                                 case 3:
-                                    button.setText("Task: translate to English");
-                                    button.setBackgroundColor(Color.rgb(135, 206, 250));
+                                    button.setText("WORDS: Translate to English");
+                                    break;
+                                case 4:
+                                    button.setText("WORDS: Choose by definition");
+                                    break;
+                                case 5:
+                                    button.setText("WORDS: Make a word from letters");
+                                    break;
+                                case 6:
+                                    button.setText("WORDS: Choose by audio");
+                                    break;
+                                case 7:
+                                    button.setText("WORDS: Translate to Russian by audio");
+                                    break;
+                                case 8:
+                                    button.setText("COLLOCATIONS: Theory");
+                                    break;
+                                case 9:
+                                    button.setText("COLLOCATIONS: Translate to Russian");
+                                    break;
+                                case 10:
+                                    button.setText("COLLOCATIONS: Translate to English");
+                                    break;
+                                case 11:
+                                    button.setText("COLLOCATIONS: Match beginning and end");
+                                    break;
+                                case 12:
+                                    button.setText("SENTENSES: Insert missing word");
+                                    break;
                             }
+//                            if(t.getType() == 1 || t.getType() == 8)
+//                                button.setBackgroundColor(Color.rgb(255, 218, 185));
+//                            else{
+//                                if(t.isCompleted()){
+//                                    button.setText(button.getText() + "  [completed]");
+//                                    button.setBackgroundColor(Color.rgb(152, 251, 152));
+//                                }
+//                                else{
+//                                    button.setText(button.getText() + "  [not completed]");
+//                                    button.setBackgroundColor(Color.rgb(135, 206, 250));
+//                                }
+//                            }
+                            if(t.isCompleted()){
+                                    button.setText(button.getText() + "  [completed]");
+                                    button.setBackgroundColor(Color.rgb(152, 251, 152));
+                                }
+                                else{
+                                    button.setText(button.getText() + "  [not completed]");
+                                    button.setBackgroundColor(Color.rgb(135, 206, 250));
+                                }
                             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
                                     (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                             layoutParams.setMargins(20, 10, 20, 30);
@@ -100,23 +145,51 @@ public class SectionActivity extends BaseActivity {
                     @Override
                     public void onResponse(@NonNull Call<Task> call, @NonNull Response<Task> response) {
                         Task t = response.body();
+                        Intent intent;
                         switch (t.getType()){
                             case 1:
-                                Intent intent = new Intent(getContext(), TheoryActivity.class);
+                                intent = new Intent(getContext(), TheoryActivity.class);
                                 intent.putExtra("sectionId", t.getSectionId());
+                                intent.putExtra("theoryType", 1);
+                                intent.putExtra("taskId", t.getId());
+                                startActivity(intent);
+                                break;
+                            case 8:
+                                intent = new Intent(getContext(), TheoryActivity.class);
+                                intent.putExtra("sectionId", t.getSectionId());
+                                intent.putExtra("theoryType", 2);
+                                intent.putExtra("taskId", t.getId());
                                 startActivity(intent);
                                 break;
                             case 2:
+                            case 3:
+                            case 4:
+                            case 9:
+                            case 10:
+                            case 11:
                                 intent = new Intent(getContext(), TranslationTaskActivity.class);
                                 intent.putExtra("sectionId", t.getSectionId());
                                 intent.putExtra("taskId", t.getId());
-                                intent.putExtra("taskType", 2);
+                                intent.putExtra("taskType", t.getType());
                                 startActivity(intent);
                                 break;
-                            case 3:
-                                intent = new Intent(getContext(), TranslationTaskActivity.class);
+                            case 12:
+                                intent = new Intent(getContext(), SentenceTaskActivity.class);
                                 intent.putExtra("sectionId", t.getSectionId());
-                                intent.putExtra("taskType", 3);
+                                intent.putExtra("taskId", t.getId());
+                                startActivity(intent);
+                                break;
+                            case 6:
+                            case 7:
+                                intent = new Intent(getContext(), AudioTaskActivity.class);
+                                intent.putExtra("sectionId", t.getSectionId());
+                                intent.putExtra("taskId", t.getId());
+                                intent.putExtra("taskType", t.getType());
+                                startActivity(intent);
+                                break;
+                            case 5:
+                                intent = new Intent(getContext(), MakeWordActivity.class);
+                                intent.putExtra("sectionId", t.getSectionId());
                                 intent.putExtra("taskId", t.getId());
                                 startActivity(intent);
                                 break;

@@ -17,9 +17,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.englishapp.APIWorker;
+import com.example.englishapp.Collocation;
 import com.example.englishapp.R;
 import com.example.englishapp.Section;
+import com.example.englishapp.ServerResponse;
 import com.example.englishapp.Word;
+import com.example.englishapp.requests.UserStatServerRequest;
 
 import java.util.List;
 
@@ -28,12 +31,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TheoryActivity extends BaseActivity {
+
+    private int theoryType;
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void setView() {
         setContentView(R.layout.activity_theory);
         Intent intent = getIntent();
         int sectionId = intent.getIntExtra("sectionId", 0);
+        int taskId = intent.getIntExtra("taskId", 0);
+        theoryType = intent.getIntExtra("theoryType", 1);
         APIWorker.getInstance()
                 .getJSONApi()
                 .getSectionInfo(sectionId)
@@ -52,7 +60,8 @@ public class TheoryActivity extends BaseActivity {
                     }
                 });
         TableLayout table = (TableLayout)findViewById(R.id.theoryTable);
-        APIWorker.getInstance()
+        if(theoryType == 1)
+            APIWorker.getInstance()
                 .getJSONApi()
                 .getSectionWords(sectionId)
                 .enqueue(new Callback<List<Word>>() {
@@ -73,10 +82,6 @@ public class TheoryActivity extends BaseActivity {
                             enWord.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                             enWord.setTextSize(24);
 
-
-//                            TextView ruWord = new TextView(getContext());
-//                            ruWord.setText(w.getRuWord());
-//                            ruWord.setLayoutParams(params);
                             TextView pOS = new TextView(getContext());
                             pOS.setTextSize(20);
                             pOS.setText(w.getPartOfSpeech());
@@ -98,23 +103,12 @@ public class TheoryActivity extends BaseActivity {
                             button.setOnClickListener((TheoryActivity.this::openNewActivity));
                             row1.addView(enWord);
                             row1.addView(pOS);
-                            //row1.addView(ruWord);
                             row1.addView(button);
                             TableRow.LayoutParams rowParams = new TableRow.LayoutParams();
                             rowParams.setMargins(0, 20,0,20);
                             row1.setLayoutParams(rowParams);
                             table.addView(row1);
 
-//                            TableRow row2 = new TableRow(getContext());
-//                            TextView definition = new TextView(getContext());
-//                            definition.setText(w.getDefinition());
-//                            TableRow.LayoutParams params2 = new TableRow.LayoutParams
-//                                    (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//                            params2.span = 4;
-//                            definition.setLayoutParams(params2);
-//                            row2.addView(definition);
-//                            table.addView(row2);
-//
                             View border = new View(getContext());
                             TableRow.LayoutParams borderParams = new TableRow.LayoutParams
                                     (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -129,13 +123,82 @@ public class TheoryActivity extends BaseActivity {
                         t.printStackTrace();
                     }
                 });
+            else
+                APIWorker.getInstance()
+                    .getJSONApi()
+                    .getSectionCollocations(sectionId)
+                    .enqueue(new Callback<List<Collocation>>() {
+                        @SuppressLint("ResourceAsColor")
+                        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+                        @Override
+                        public void onResponse(@NonNull Call<List<Collocation>> call, @NonNull Response<List<Collocation>> response) {
+                            List<Collocation> collocations = response.body();
+                            for (Collocation c: collocations) {
+                                TableRow row1 = new TableRow(getContext());
+                                TextView enWord = new TextView(getContext());
+                                enWord.setText(c.getFull());
+                                TableRow.LayoutParams params = new TableRow.LayoutParams
+                                        (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                params.weight = 50;
+                                enWord.setLayoutParams(params);
+                                enWord.setTextColor(Color.rgb(0, 0, 0));
+                                enWord.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                                enWord.setTextSize(24);
 
+                                Button button = new Button(getContext());
+                                int widthInDp = 20;
+                                int widthInPx = (int) TypedValue.applyDimension(
+                                        TypedValue.COMPLEX_UNIT_DIP, widthInDp, getResources().getDisplayMetrics());
+                                int heightInDp = 30;
+                                int heightInPx = (int) TypedValue.applyDimension(
+                                        TypedValue.COMPLEX_UNIT_DIP, heightInDp, getResources().getDisplayMetrics());
+                                TableRow.LayoutParams button_params = new TableRow.LayoutParams(widthInPx,heightInPx);
+                                button_params.weight = 10;
+                                button.setLayoutParams(button_params);
+                                button.setBackgroundResource(R.drawable.lup_icon);
+                                button.setId(c.getId());
+                                button.setOnClickListener((TheoryActivity.this::openNewActivity));
+                                row1.addView(enWord);
+                                row1.addView(button);
+                                TableRow.LayoutParams rowParams = new TableRow.LayoutParams();
+                                rowParams.setMargins(0, 20,0,20);
+                                row1.setLayoutParams(rowParams);
+                                table.addView(row1);
+
+                                View border = new View(getContext());
+                                TableRow.LayoutParams borderParams = new TableRow.LayoutParams
+                                        (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                borderParams.height=2;
+                                border.setBackgroundColor(Color.rgb(0, 0, 139));
+                                border.setLayoutParams(borderParams);
+                                table.addView(border);
+                            }
+                        }
+                        @Override
+                        public void onFailure(@NonNull Call<List<Collocation>> call, @NonNull Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
+
+        UserStatServerRequest request = new UserStatServerRequest(getAuthedUserId(), -1, 1, taskId);
+        APIWorker.getInstance().getJSONApi().fix_stat(request)
+                .enqueue(new Callback<ServerResponse>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ServerResponse> call, @NonNull Response<ServerResponse> response) {
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<ServerResponse> call, @NonNull Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
     }
 
     @Override
     public void openNewActivity(View view) {
         Intent intent = new Intent(this, WordCardActivity.class);
         intent.putExtra("word_id", view.getId());
+        intent.putExtra("isWord", theoryType == 1);
         startActivity(intent);
     }
 }

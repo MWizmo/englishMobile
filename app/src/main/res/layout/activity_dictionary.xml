@@ -12,7 +12,6 @@
         tools:ignore="MissingConstraints">
 
         <LinearLayout
-            android:id="@+id/wordsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
@@ -21,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="My words"
+            android:text="My dictionary"
             android:textAlignment="center"
             android:textColor="#00008B"
             android:textSize="20sp"
@@ -31,6 +30,27 @@
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
             android:background="#00008B" />
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="38dp"
+            tools:ignore="MissingConstraints"
+            android:id="@+id/tabLayout">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="loadUserWords"
+                android:text="Words"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="loadUserCollocations"
+                android:text="Collocations" />
+
+        </com.google.android.material.tabs.TabLayout>
         <TextView
             android:id="@+id/dictionaryEmptyText"
             android:layout_width="match_parent"
@@ -42,6 +62,36 @@
             android:layout_marginTop="20dp"
             android:visibility="gone"
             android:textStyle="italic" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:id="@+id/wordsList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+            </LinearLayout>
+
+        </ScrollView>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:id="@+id/collocationsList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"
+                >
+
+            </LinearLayout>
+
+        </ScrollView>
 
         </LinearLayout>
     </ScrollView>

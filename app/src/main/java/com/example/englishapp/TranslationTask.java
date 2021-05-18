@@ -10,6 +10,9 @@ public class TranslationTask {
     @SerializedName("ruWord")
     @Expose
     private String ruWord;
+    @SerializedName("definition")
+    @Expose
+    private String definition;
     @SerializedName("isRight")
     @Expose
     private boolean isRight;
@@ -47,5 +50,13 @@ public class TranslationTask {
 
     public void setWordId(int wordId) {
         this.wordId = wordId;
+    }
+
+    public String getDefinition() {
+        return definition;
+    }
+
+    public void setDefinition(String definition) {
+        this.definition = definition;
     }
 }
